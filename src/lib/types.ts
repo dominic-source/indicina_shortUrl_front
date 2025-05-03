@@ -13,3 +13,11 @@ export interface FetchConfig {
   endpoint?: string;
   method?: string;
 }
+
+export interface UrlEntryType {
+  longUrl: string;
+  shortUrl: string;
+  createdAt: string;
+  visits: string;
+  lastVisited?: string;
+}
