@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { listUrls } from '@/lib/apiClient';
 import { UrlEntryType } from '@/lib/types';
 import UrlItem from '@/components/UrlItem';
-import SearchBar from '@/components/SearchBar';
+// import SearchBar from '@/components/SearchBar';
 
 export default function UrlList() {
 
