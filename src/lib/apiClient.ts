@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/lib/constants";
-import { fetchUtils } from "./fetchUtil";
+import { fetchUtils } from "@/lib/fetchUtil";
 
 export const decodeShortUrl = fetchUtils({
   baseUrl: BASE_URL,
