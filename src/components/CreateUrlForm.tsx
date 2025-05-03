@@ -28,11 +28,10 @@ export default function CreateUrlForm({ onSuccess }: { onSuccess: () => void }) 
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Create Short URL</h2>
+    <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-md">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="longUrl" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="longUrl" className="block text-sm font-medium text-gray-800 mb-1">
             Long URL
           </label>
           <input
@@ -41,7 +40,7 @@ export default function CreateUrlForm({ onSuccess }: { onSuccess: () => void }) 
             value={longUrl}
             onChange={(e) => setLongUrl(e.target.value)}
             placeholder="https://example.com/very-long-url"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
             required
           />
         </div>
