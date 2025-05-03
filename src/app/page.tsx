@@ -1,13 +1,36 @@
-'use client'
+'use client';
 
-import CreateUrlForm from "@/components/CreateUrlForm";
+import { useState } from 'react';
+import CreateUrlForm from '../components/CreateUrlForm';
+import Link from 'next/link';
 
 export default function Home() {
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleSuccess = () => {
+    // This will trigger a refresh of the form
+    setRefreshKey(prev => prev + 1);
+  };
+
   return (
-    <div className="">
-      This is the first page of the URL Shortener app. You can create short URLs
-      and manage them here.
-      <CreateUrlForm onSuccess={() => console.log("URL created successfully!")} />
-    </div>
+    <main className="min-h-screen bg-gray-50 py-12">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">URL Shortener</h1>
+          <p className="text-gray-600">Create a short and easy to remember links</p>
+        </div>
+
+        <CreateUrlForm key={refreshKey} onSuccess={handleSuccess} />
+
+        <div className="mt-8 text-center">
+          <Link 
+            href="/urls" 
+            className="text-blue-600 hover:underline"
+          >
+            View all your short URLs →
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }
