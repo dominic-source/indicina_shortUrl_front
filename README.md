@@ -54,7 +54,7 @@ src/
   app/           # Next.js app directory (routing, pages)
   components/    # Reusable React components (UrlList, UrlItem, CreateUrlForm, SearchBar)
   lib/           # Utility libraries (fetchUtil, trieSearch, apiClient)
-  styles/        # Global styles (if any)
+  styles/        # Global styles
 ```
 
 ---
@@ -99,7 +99,3 @@ For more deployment options, see the [Next.js deployment documentation](https://
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
 ---
-
-## License
-
-MIT © [Your Name]
