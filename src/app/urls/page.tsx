@@ -1,5 +1,5 @@
-import UrlList from '../../components/UrlList';
-import Link from 'next/link';
+import UrlList from "../../components/UrlList";
+import Link from "next/link";
 
 export default function UrlsPage() {
   return (
