@@ -4,20 +4,23 @@ import { useState, useEffect } from "react";
 import { listUrls } from "@/lib/apiClient";
 import { UrlEntryType } from "@/lib/types";
 import UrlItem from "@/components/UrlItem";
-// import SearchBar from '@/components/SearchBar';
+import SearchBar from "@/components/SearchBar";
+import { Trie } from "@/lib/trieSearch";
 
 export default function UrlList() {
   const [urls, setUrls] = useState<UrlEntryType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [trie, setTrie] = useState<Trie | null>(null);
+  const [filteredUrls, setFilteredUrls] = useState<UrlEntryType[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const loadUrls = async (search?: string) => {
+  const loadUrls = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
       const data = await listUrls();
-      console.log("URLs loaded:", data);
       setUrls(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load URLs");
@@ -30,11 +33,26 @@ export default function UrlList() {
     loadUrls();
   }, []);
 
-  //   const handleSearch = (query: string) => {
-  //     console.log('loadUrls called');
+  useEffect(() => {
+    if (urls.length > 0) {
+      const newTrie = new Trie();
+      urls.forEach((url) => {
+        newTrie.insert(url.longUrl, url);
+      });
+      setTrie(newTrie);
+    }
+  }, [urls]);
 
-  //     loadUrls(query);
-  //   };
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    if (!trie) return;
+    if (query.length < 3) {
+      setFilteredUrls([]);
+      return;
+    }
+    const results = trie.getWordsWithPrefix(query);
+    setFilteredUrls(results);
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -42,7 +60,7 @@ export default function UrlList() {
         Your Short URLs
       </h1>
 
-      {/* <SearchBar onSearch={handleSearch} /> */}
+      <SearchBar onSearch={handleSearch} />
 
       {isLoading ? (
         <div className="flex justify-center py-8">
@@ -56,7 +74,15 @@ export default function UrlList() {
         </div>
       ) : (
         <div className="space-y-4">
-          {urls.map((url) => (
+          {filteredUrls.length > 0 && (
+            <div className="text-center text-gray-500">
+              Showing results for "{searchQuery}".
+            </div>
+          )}
+          {(filteredUrls.length > 0
+            ? filteredUrls
+            : urls
+          ).map((url) => (
             <UrlItem key={url.longUrl} url={url} />
           ))}
         </div>
