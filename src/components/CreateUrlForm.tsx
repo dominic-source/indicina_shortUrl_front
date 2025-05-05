@@ -29,7 +29,7 @@ export default function CreateUrlForm({
       timeoutRef.current = setTimeout(() => {
         onSuccess();
         setShortUrl(null);
-      }, 30000);
+      }, 10000);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred",
